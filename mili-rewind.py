@@ -212,4 +212,4 @@ async def details(ctx):
         embed.add_field(name=channelName, inline=False, value=f"Views: {views}")
     await ctx.send(embed=embed)
 
-bot.run()
+bot.run(os.environ.get("DISCORD_TOKEN"))
