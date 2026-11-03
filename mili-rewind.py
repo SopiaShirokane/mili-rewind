@@ -24,7 +24,7 @@ cur.execute("""
 """)
 
 def getApi(member):
-    validNames = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
+    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
     handle = ["@Mil_Pro", "@OtonoseRaco", "@AmakamiKonomi", "@komawarikoma", "@_YuraYuragi", "@NijipukaNuhu", "@MitamaAoi", "@NemukumoTsukuri", "@Amayo_liz", "@YugiriRay", "@_nonono_nono", "@Akubi.demonspade", "@Kano_"]
     for i in range(len(validNames)):
         if member == validNames[i]:
@@ -79,7 +79,7 @@ async def on_ready():
     
 @bot.command(name="topmember")
 async def topmember(ctx, member):
-    validNames = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
+    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
     if member not in validNames:
         await ctx.send(f"That doesn't look like a MilPro member's name, choose from: {", ".join(validNames)}")
         return
