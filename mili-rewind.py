@@ -77,22 +77,31 @@ bot = commands.Bot(command_prefix="m!", intents=intents, help_command=None)
 async def on_ready():
     print(f"Logged in as {bot.user}")
     
-@bot.command(name="topmember")
-async def topmember(ctx, member):
+@bot.command(name="member")
+async def member(ctx, member):
+    talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
     validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
     if member not in validNames:
         await ctx.send(f"That doesn't look like a MilPro member's name, choose from: {", ".join(validNames)}")
         return
+    
     fileData = getApi(member)
 
-    embed = discord.Embed(title=f"Top 5 watched videos from {member}", color=0x8000FF)
+    stats = fileData["items"][0]["statistics"]
+    embed = discord.Embed(title=f"Top 5 watched videos from {member}", color=0x8000FF, description=f'Videos: {stats["videoCount"]}  |  Views: {stats["viewCount"]}  |  Subscribers: {stats["subscriberCount"]}')
     url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
     embed.set_thumbnail(url=url)
     totalChannelViews = 0
-    for channelViewCount in cur.execute(f"SELECT viewCount FROM watchHistory WHERE channel='{member}'"):
+    talentName = None
+    for i in range(len(validNames)):
+        if member == validNames[i]:
+            talentName = talent[i]
+            break
+
+    for channelViewCount in cur.execute(f"SELECT viewCount FROM watchHistory WHERE channel='{talentName}'"):
         totalChannelViews += channelViewCount[0]
     embed.add_field(name=f"You've watched {member} {totalChannelViews} times this year!", inline=False, value="")
-    for title, viewCount, link in cur.execute(f"SELECT title, viewCount, videoId FROM watchHistory WHERE channel='{member}' ORDER BY viewCount DESC LIMIT 5"):
+    for title, viewCount, link in cur.execute(f"SELECT title, viewCount, videoId FROM watchHistory WHERE channel='{talentName}' ORDER BY viewCount DESC LIMIT 5"):
         embed.add_field(name=title, inline=False, value=f"Views: {viewCount} \nLink: https://www.youtube.com/watch?v={link}")
     await ctx.send(embed=embed)
 
