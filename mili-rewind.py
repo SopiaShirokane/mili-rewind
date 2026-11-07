@@ -24,8 +24,8 @@ cur.execute("""
 """)
 
 def getApi(member):
-    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
-    handle = ["@Mil_Pro", "@OtonoseRaco", "@AmakamiKonomi", "@komawarikoma", "@_YuraYuragi", "@NijipukaNuhu", "@MitamaAoi", "@NemukumoTsukuri", "@Amayo_liz", "@YugiriRay", "@_nonono_nono", "@Akubi.demonspade", "@Kano_"]
+    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro", "PukaAma"]
+    handle = ["@Mil_Pro", "@OtonoseRaco", "@AmakamiKonomi", "@komawarikoma", "@_YuraYuragi", "@NijipukaNuhu", "@MitamaAoi", "@NemukumoTsukuri", "@Amayo_liz", "@YugiriRay", "@_nonono_nono", "@Akubi.demonspade", "@Kano_", "@ぷかあま"]
     for i in range(len(validNames)):
         if member == validNames[i]:
             response = requests.get(
@@ -45,7 +45,7 @@ def getApi(member):
 with open("watch-history.json", "r", encoding="utf-8") as f:
     fileData = json.load(f)
 
-miliChannels = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
+miliChannels = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro", "ぷかあまぱーく"]
 watchedVideo = []
 count = 0
 for entry in fileData:
@@ -77,10 +77,11 @@ bot = commands.Bot(command_prefix="m!", intents=intents, help_command=None)
 async def on_ready():
     print(f"Logged in as {bot.user}")
     
+
 @bot.command(name="member")
 async def member(ctx, member):
-    talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
-    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
+    talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro", "ぷかあまぱーく"]
+    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro", "PukaAma"]
     if member not in validNames:
         await ctx.send(f"That doesn't look like a MilPro member's name, choose from: {", ".join(validNames)}")
         return
@@ -154,7 +155,7 @@ async def rewind(ctx):
     if topChannels[0][0] == "甘狼このみ / AmakamiKonomi🐺🍫":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
-        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="You are either here at the beginning or think that the CEO is cool")
+        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="You are either here at the beginning or think that the CEO is cool (when in reality she's just a bad of cuteness)")
     if topChannels[0][0] == "小廻こま / Komawari Koma":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
@@ -186,7 +187,7 @@ async def rewind(ctx):
     if topChannels[0][0] == "音ノ乃のの / NononoNono":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
-        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="The chance of you being rejected when professing to her is 500%")
+        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="The chances of you being rejected when professing to her is 500%")
     if topChannels[0][0] == "あくび・でもんすぺーど / Akubi Demonspade":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
@@ -195,6 +196,10 @@ async def rewind(ctx):
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
         embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="I can smell the osu gamers miles away... Jokes aside she already has a huge fanbase so, welcome?")
+    if topChannels[0][0] == "ぷかあまぱーく":
+        url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
+        embedMember.set_thumbnail(url=url)
+        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="I genly have no comments for this they just released this unit")
     await ctx.send(embed=embedMember)
 
 @bot.command(name="details")
