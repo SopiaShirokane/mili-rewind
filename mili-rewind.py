@@ -155,7 +155,7 @@ async def rewind(ctx):
     if topChannels[0][0] == "甘狼このみ / AmakamiKonomi🐺🍫":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
-        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="You are either here at the beginning or think that the CEO is cool (when in reality she's just a bad of cuteness)")
+        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="You are either here at the beginning or think that the CEO is cool (when in reality she's just a bag of cuteness)")
     if topChannels[0][0] == "小廻こま / Komawari Koma":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
