@@ -32,6 +32,7 @@ def getApi(member):
                 "https://www.googleapis.com/youtube/v3/channels",
                 params={f"part": "snippet, statistics, contentDetails", "forHandle": {handle[i]}, "key": API_KEY},
             )
+            break
     with open ("channel.json", "w", encoding="utf-8") as f:
         print(response.json(), file=f)
     with open("channel.json", "r", encoding="utf-8") as f:
@@ -78,10 +79,10 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
     
 
-@bot.command(name="member")
+@bot.command(name="member", aliases = ["m"])
 async def member(ctx, member):
-    talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro", "ぷかあまぱーく"]
-    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro", "PukaAma"]
+    talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
+    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
     if member not in validNames:
         await ctx.send(f"That doesn't look like a MilPro member's name, choose from: {", ".join(validNames)}")
         return
@@ -106,7 +107,7 @@ async def member(ctx, member):
         embed.add_field(name=title, inline=False, value=f"Views: {viewCount} \nLink: https://www.youtube.com/watch?v={link}")
     await ctx.send(embed=embed)
 
-@bot.command(name="rewind")
+@bot.command(name="rewind", aliases = ["rw"])
 async def rewind(ctx):
     embed = discord.Embed(title="Your MilPro rewind", color=0x8000FF)
     embed.set_image(url="https://pbs.twimg.com/profile_banners/1628632642492198912/1786888616/1500x500")
@@ -155,7 +156,7 @@ async def rewind(ctx):
     if topChannels[0][0] == "甘狼このみ / AmakamiKonomi🐺🍫":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
-        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="You are either here at the beginning or think that the CEO is cool (when in reality she's just a bag of cuteness)")
+        embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="You are either here at the beginning or think that the CEO is cool (when in reality she's just a bad of cuteness)")
     if topChannels[0][0] == "小廻こま / Komawari Koma":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
         embedMember.set_thumbnail(url=url)
@@ -202,7 +203,7 @@ async def rewind(ctx):
         embedMember.add_field(name=f"{topChannels[0][0]}!", inline=False, value="I genly have no comments for this they just released this unit")
     await ctx.send(embed=embedMember)
 
-@bot.command(name="details")
+@bot.command(name="details", aliases = ["d"])
 async def details(ctx):
     embed = discord.Embed(title="Every channels you have watched", color=0x8000FF)
     embed.set_image(url="https://pbs.twimg.com/profile_banners/1628632642492198912/1786888616/1500x500")
@@ -225,5 +226,71 @@ async def details(ctx):
     for channelName, views in cur.execute("SELECT channelName, views from channelViews ORDER BY views DESC"):
         embed.add_field(name=channelName, inline=False, value=f"Views: {views}")
     await ctx.send(embed=embed)
+
+@bot.command(name="group", aliases = ["g"])
+async def group(ctx):
+    groups = ["GENERATION", "NOVA", "UNI", "SONA"]
+    gen = ["甘狼このみ / AmakamiKonomi🐺🍫", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "小廻こま / Komawari Koma"]
+    nova = ["音ノ瀬らこ / Otonose Raco", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi"]
+    uni = ["眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay"]
+    sona = ["音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
+
+    groupTable = []
+    cur.execute("DROP TABLE IF EXISTS groupViews")
+    cur.execute("""
+        CREATE TABLE groupViews(
+        groupName TEXT, 
+        views INTERGER)
+    """)
+    
+    for channel, viewCount in cur.execute("SELECT channel, viewCount FROM watchHistory"):
+        if channel in gen:
+            for items in groupTable:
+                if items[0] == "GENERATION":
+                    items[1] += viewCount
+                    break
+            else:
+                groupTable.append(["GENERATION", viewCount])
+        if channel in nova:
+            for items in groupTable:
+                if items[0] == "NOVA":
+                    items[1] += viewCount
+                    break
+            else:
+                groupTable.append(["NOVA", viewCount])
+        if channel in uni:
+            for items in groupTable:
+                if items[0] == "UNI":
+                    items[1] += viewCount
+                    break
+            else:
+                groupTable.append(["UNI", viewCount])
+        if channel in sona:
+            for items in groupTable:
+                if items[0] == "SONA":
+                    items[1] += viewCount
+                    break
+            else:
+                groupTable.append(["SONA", viewCount])
+    cur.executemany("INSERT INTO groupViews VALUES(?, ?)", groupTable)
+    
+    for groupItem, viewCount in cur.execute("SELECT groupName, views FROM groupViews ORDER BY views DESC"):
+        if groupItem == "GENERATION":
+            genViews = viewCount
+        elif groupItem == "NOVA":
+            novaViews = viewCount
+        elif groupItem == "UNI":
+            uniViews = viewCount
+        elif groupItem == "SONA":
+            sonaViews = viewCount
+        
+    embed = discord.Embed(title="MilPro's groups", color=0x8000FF)
+    embed.set_thumbnail(url="https://i.ibb.co/N2zbVxyC/milpro.png")
+    embed.add_field(name="GENERATION", value=f"Members: \n1st Gen | Amakami Konomi \n2nd Gen | Nonono Nono \n3rd Gen | Akubi Demonspade \n4th Gen | Komawari Koma \n\n Total views: {genViews}", inline=False)
+    embed.add_field(name="NOVA", value=f"Members: \nOtonose Raco \nYuragi Yura \nNijipuka Nuhu \nMitama Aoi \n\n Total views: {novaViews}", inline=False)
+    embed.add_field(name="UNI", value=f"Members: \nNemukumo Tsukuri \nAmayo Liz \nYugiri Ray \n\n Total views: {uniViews}", inline=False)
+    embed.add_field(name="SONA", value=f"Members: \nNonono Nono \nAkubi Demonspade \nKano Mahoro \n\n Total views: {sonaViews}", inline=False)
+    await ctx.send(embed=embed)
+    #for groupItem, viewCount in cur.execute("SELECT groupName, views FROM groupViews ORDER BY views DESC"):
 
 bot.run(os.environ.get("DISCORD_TOKEN"))
