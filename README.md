@@ -5,12 +5,15 @@ Another discord bot, yeah. This time using your watch-history.json file from Goo
 
  - Clone this repo 
  - Run these commands:
+   
    ```python -m venv .venv```
+   
    ```pip install --disable-pip-version-check -U --prefix .venv/ -r requirements.txt```
+   
    ```source [the path you installed this repo]/.venv/bin/[*]```
-   [*]: activate.fish for fish shell
-        Activate.ps1 for Windows Powershell
-        activate.csh for anything else
+   
+   [*]: activate.fish for fish shell, Activate.ps1 for Windows Powershell, activate.csh for anything else
+   
    ```python3 mili-rewind.py```
  - Make sure you already created environment variables for Youtube's API and Discord's token before using python3
  - Invite the bot to your server (find out how yourself)
