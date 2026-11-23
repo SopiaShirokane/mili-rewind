@@ -143,7 +143,15 @@ async def rewind(ctx):
         embed.add_field(name=title, inline=False, value=f"Views: {viewCount} \nChannel: {channelName} \nLink: https://www.youtube.com/watch?v={link}")
     await ctx.send(embed=embed)
 
-    fileData = getApi(topChannels[0][0])
+    talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
+    validNames = ["Million Production", "Otonose Raco", "Amakami Konomi", "Komawari Koma", "Yuragi Yura", "Nijipuka Nuhu", "Mitama Aoi", "Nemukumo Tsukuri", "Amayo Liz", "Yugiri Ray", "Nonono Nono", "Akubi Demonspade", "Kano Mahoro"]
+    talentName = None
+    for i in range(len(talent)):
+        if topChannels[0][0] == talent[i]:
+            talentName = validNames[i]
+            break
+
+    fileData = getApi(talentName)
     embedMember = discord.Embed(title="You probably knew, but the member you have been with the most is...", color=0x8000FF)
     if topChannels[0][0] == "ミリプロ - MillionProduction -":
         url = fileData["items"][0]["snippet"]["thumbnails"]["high"]["url"]
