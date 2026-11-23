@@ -77,8 +77,7 @@ bot = commands.Bot(command_prefix="m!", intents=intents, help_command=None)
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
-    
-
+            
 @bot.command(name="member", aliases = ["m"])
 async def member(ctx, member):
     talent = ["ミリプロ - MillionProduction -", "音ノ瀬らこ / Otonose Raco", "甘狼このみ / AmakamiKonomi🐺🍫", "小廻こま / Komawari Koma", "ゆらぎゆら / YuragiYura🌙🫧", "虹深°ぬふ / Nijipuka Nuhu", "海琳あおい / Mitama Aoi", "眠雲ツクリ / NemukumoTsukuri", "雨夜リズ / Amayo Liz", "夕霧レイ / YugiriRay", "音ノ乃のの / NononoNono", "あくび・でもんすぺーど / Akubi Demonspade", "鹿乃まほろ / Kano Mahoro"]
@@ -111,28 +110,28 @@ async def member(ctx, member):
 async def rewind(ctx):
     embed = discord.Embed(title="Your MilPro rewind", color=0x8000FF)
     embed.set_image(url="https://pbs.twimg.com/profile_banners/1628632642492198912/1786888616/1500x500")
-    cons = sqlite3.connect("watch-history.db")
-    curs = cons.cursor()
     channelTable = []
-    curs.execute("DROP TABLE IF EXISTS channelViews")
-    curs.execute("""
+    cur.execute("DROP TABLE IF EXISTS channelViews")
+    cur.execute("""
         CREATE TABLE channelViews(
         channelName TEXT,
         views INTERGER
         )
     """)
-    for channel, viewCount in curs.execute("SELECT channel, viewCount FROM watchHistory ORDER BY viewCount DESC"):
+    for channel, viewCount in cur.execute("SELECT channel, viewCount FROM watchHistory ORDER BY viewCount DESC"):
         for channelItem in channelTable:
             if channelItem[0] == channel:
                 channelItem[1] += viewCount
                 break
         else:
             channelTable.append([channel, viewCount])
-    curs.executemany("INSERT INTO channelViews VALUES(?, ?)", channelTable)
-    curs.execute("SELECT channelName, views from channelViews ORDER BY views DESC")
-    topChannels = curs.fetchmany(5)
-    curs.execute("SELECT views FROM channelviews")
-    total = curs.fetchall()
+    cur.executemany("INSERT INTO channelViews VALUES(?, ?)", channelTable)
+    cur.execute("SELECT channelName, views from channelViews ORDER BY views DESC")
+    con.commit()
+
+    topChannels = cur.fetchmany(5)
+    cur.execute("SELECT views FROM channelviews")
+    total = cur.fetchall()
     totalViews = 0
     for views in total:
         totalViews += views[0]
@@ -250,7 +249,6 @@ async def group(ctx):
         groupName TEXT, 
         views INTERGER)
     """)
-    
     for channel, viewCount in cur.execute("SELECT channel, viewCount FROM watchHistory"):
         if channel in gen:
             for items in groupTable:
@@ -281,7 +279,6 @@ async def group(ctx):
             else:
                 groupTable.append(["SONA", viewCount])
     cur.executemany("INSERT INTO groupViews VALUES(?, ?)", groupTable)
-    
     for groupItem, viewCount in cur.execute("SELECT groupName, views FROM groupViews ORDER BY views DESC"):
         if groupItem == "GENERATION":
             genViews = viewCount
@@ -299,6 +296,5 @@ async def group(ctx):
     embed.add_field(name="UNI", value=f"Members: \nNemukumo Tsukuri \nAmayo Liz \nYugiri Ray \n\n Total views: {uniViews}", inline=False)
     embed.add_field(name="SONA", value=f"Members: \nNonono Nono \nAkubi Demonspade \nKano Mahoro \n\n Total views: {sonaViews}", inline=False)
     await ctx.send(embed=embed)
-    #for groupItem, viewCount in cur.execute("SELECT groupName, views FROM groupViews ORDER BY views DESC"):
 
 bot.run(os.environ.get("DISCORD_TOKEN"))
